@@ -1,5 +1,8 @@
 # Pass in
 
+//API -> Application Programming Interface
+// It will be accessed by the front-end application
+
 This application serves as a tool for managing event participants in person. Its functionality includes:
 
 Allowing the manager to create new events.
