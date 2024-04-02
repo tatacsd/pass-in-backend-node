@@ -1,0 +1,17 @@
+{
+  "name": "pass-in-backend-node",
+  "version": "1.0.0",
+  "description": "This application serves as a tool for managing event participants in person. Its functionality includes:",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.12.2",
+    "tsx": "^4.7.1",
+    "typescript": "^5.4.3"
+  }
+}
