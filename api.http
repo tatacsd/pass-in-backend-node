@@ -2,17 +2,23 @@ POST http://localhost:3333/events
 Content-Type: application/json
 
 {
-    "title": "Conceryt",
+    "title": "Test",
     "details": "A concert featuring the band The Beatles",
     "maxAttendees": 100
 }
 
 ###
 
-POST http://localhost:3333/events/b626952b-e413-4ea6-bcfe-e2a628ab341/attendees
+POST http://localhost:3333/events/da2b987f-e829-4384-8c5d-7ebba6e13b9e/attendees
 Content-Type: application/json
 
 {
     "name": "John Doe",
     "email": "john.doe@test.com"
 }
+
+
+###
+
+GET http://localhost:3333/events/da2b987f-e829-4384-8c5d-7ebba6e13b9e
+
