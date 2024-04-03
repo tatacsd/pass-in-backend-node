@@ -1,6 +1,7 @@
 import fastify from 'fastify';
 import { z } from 'zod';
 import { PrismaClient } from '@prisma/client';
+import { generateSlug } from './utils/generate-slig';
 
 const app = fastify();
 const prisma = new PrismaClient({
@@ -17,12 +18,26 @@ app.post("/events", async (request, reply) => {
 
     const data = eventSchema.parse(request.body);
 
+    const slug = generateSlug(data.title);
+
+    // Check if the slug already exists
+    const existingSlug = await prisma.event.findFirst({
+        where: {
+            slug,
+        },
+    });
+
+    if (existingSlug) {
+        throw new Error('An event with this slug already exists');
+    }
+
+
     // Create the event
     const event = await prisma.event.create({
         data: {
             title: data.title,
             details: data.details,
-            slug: new Date().toISOString(), // temporary slug
+            slug,
             maxAttendees: data.maxAttendees,
         },
     });
