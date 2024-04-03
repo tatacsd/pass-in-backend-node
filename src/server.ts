@@ -3,7 +3,7 @@ import {
   serializerCompiler,
   validatorCompiler,
 } from "fastify-type-provider-zod";
-import { createEvents } from "./routes/create-events";
+import { createEvents } from "./routes/create-event";
 
 
 const app = fastify();
