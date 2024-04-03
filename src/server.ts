@@ -1,18 +1,35 @@
 import fastify from 'fastify';
-
-
-//API -> Application Programming Interface
-// It will be accessed by the front-end application
-
-// Native driver -> pg, mysql, sqlite -> low level
-// Query builder -> Knex.js, Bookshelf.js -> medium level
-// ORM -> TypeORM, Sequelize, Prisma, drizzle -> high level (using version like migrations, entities, etc)
+import { z } from 'zod';
+import { PrismaClient } from '@prisma/client';
 
 const app = fastify();
-
-app.get('/', async (request, reply) => {
-    return { hello: 'world' };
+const prisma = new PrismaClient({
+    log: ['query'],
 });
+
+app.post("/events", async (request, reply) => {
+    // Validate the request body
+    const eventSchema = z.object({
+        title: z.string().min(3).max(255),
+        details: z.string().optional(),
+        maxAttendees: z.number().int().positive().nullable(),
+    });
+
+    const data = eventSchema.parse(request.body);
+
+    // Create the event
+    const event = await prisma.event.create({
+        data: {
+            title: data.title,
+            details: data.details,
+            slug: new Date().toISOString(), // temporary slug
+            maxAttendees: data.maxAttendees,
+        },
+    });
+
+    return reply.code(201).send({ eventId: event.id });
+});
+
 
 app.listen({port:3333}).then(() => {
     console.log('HTTP server is running! https://localhost:3333');
