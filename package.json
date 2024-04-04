@@ -4,7 +4,9 @@
   "description": "This application serves as a tool for managing event participants in person. Its functionality includes:",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch --env-file .env src/server.ts"
+    "dev": "tsx watch --env-file .env src/server.ts",
+    "build": "tsup src --format esm",
+    "start": "node dist/server.mjs"
   },
   "keywords": [],
   "author": "Thays Casado",
@@ -15,6 +17,7 @@
   "devDependencies": {
     "@types/node": "^20.12.2",
     "prisma": "^5.11.0",
+    "tsup": "^8.0.2",
     "tsx": "^4.7.1",
     "typescript": "^5.4.3"
   },
