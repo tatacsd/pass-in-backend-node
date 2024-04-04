@@ -10,6 +10,8 @@ export async function createEvents(app: FastifyInstance) {
     "/events",
     {
       schema: {
+        summary: "Create a new event",
+        tags: ["events"],
         body: z.object({
           title: z.string().min(3).max(255),
           details: z.string().optional(),
@@ -18,6 +20,9 @@ export async function createEvents(app: FastifyInstance) {
         response: {
           201: z.object({
             eventId: z.string().uuid(),
+          }),
+          400: z.object({
+            message: z.string(),
           }),
         },
       },
@@ -35,7 +40,7 @@ export async function createEvents(app: FastifyInstance) {
       });
 
       if (existingSlug) {
-        throw new Error("An event with this slug already exists");
+        reply.code(400).send({ message: "An event with this slug already exists" });
       }
 
       // Create the event
