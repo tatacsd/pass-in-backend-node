@@ -7,6 +7,7 @@ import { createEvents } from "./routes/create-event";
 import { registeForEvent } from "./routes/register-for-event";
 import { getEvent } from "./routes/get-event";
 import { getAttendeeBadge } from "./routes/get-attendee-badge";
+import { checkIns } from "./routes/check-ins";
 
 
 const app = fastify();
@@ -20,6 +21,7 @@ app.register(createEvents);
 app.register(registeForEvent);
 app.register(getEvent);
 app.register(getAttendeeBadge);
+app.register(checkIns);
 
 app.listen({ port: 3333 }).then(() => {
   console.log("HTTP server is running! https://localhost:3333");
