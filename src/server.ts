@@ -1,6 +1,7 @@
 import fastify from "fastify";
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUI from "@fastify/swagger-ui";
+import fastifyCors from "@fastify/cors";
 
 import {
   serializerCompiler,
@@ -15,33 +16,37 @@ import { checkIns } from "./routes/check-ins";
 import { getEventAttendees } from "./routes/get-event-attendees";
 import { errorHandler } from "./error-handler";
 
-
 const app = fastify();
+
+// Add CORS to the app
+app.register(fastifyCors, {
+  origin: "*", // Allow all origins
+  // origin: ["http://localhost:3000"], // Allow only the specified origin
+});
 
 // Add swagger documentation to the app
 app.register(fastifySwagger, {
- swagger: {
-  consumes: ["application/json"], // All data sent to the server is in JSON format
-  produces: ["application/json"], // All data sent from the server is in JSON format
-  info: {
-    title: "Pass.in Event Management API",
-    description: "Specifications for the Pass.in Event Management API endpoints consumed by the Pass.in web and mobile applications.",
-    version: "1.0.0",
+  swagger: {
+    consumes: ["application/json"], // All data sent to the server is in JSON format
+    produces: ["application/json"], // All data sent from the server is in JSON format
+    info: {
+      title: "Pass.in Event Management API",
+      description:
+        "Specifications for the Pass.in Event Management API endpoints consumed by the Pass.in web and mobile applications.",
+      version: "1.0.0",
+    },
   },
- },
- // 
- transform: jsonSchemaTransform, // it will make swagger understand that i am using zod for validation, and it will generate the schema accordingly for each route
+  //
+  transform: jsonSchemaTransform, // it will make swagger understand that i am using zod for validation, and it will generate the schema accordingly for each route
 });
 
 app.register(fastifySwaggerUI, {
   routePrefix: "/docs", // The URL to access the Swagger UI
-  
 });
 
 // Add schema validation and serialization to the app
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
-
 
 app.register(createEvents);
 app.register(registeForEvent);
@@ -52,6 +57,6 @@ app.register(getEventAttendees);
 
 app.setErrorHandler(errorHandler);
 
-app.listen({ port: 3333 }).then(() => {
+app.listen({ port: 3333, host: "0.0.0.0" }).then(() => {
   console.log("HTTP server is running! https://localhost:3333");
 });
