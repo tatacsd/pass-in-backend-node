@@ -3,7 +3,7 @@ import { z } from "zod";
 import { generateSlug } from "../utils/generate-slug";
 import { prisma } from "../lib/prisma";
 import { FastifyInstance } from "fastify";
-
+import { BadRequest } from "./_errors/bad-request";
 
 export async function createEvents(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -13,7 +13,10 @@ export async function createEvents(app: FastifyInstance) {
         summary: "Create a new event",
         tags: ["events"],
         body: z.object({
-          title: z.string().min(3).max(255),
+          title: z
+            .string({ invalid_type_error: "Title must be a string" })
+            .min(3, { message: "Title must be at least 3 character long" })
+            .max(255, { message: "Title must be at most 255 characters long" }),
           details: z.string().optional(),
           maxAttendees: z.number().int().positive().nullable(),
         }),
@@ -40,7 +43,7 @@ export async function createEvents(app: FastifyInstance) {
       });
 
       if (existingSlug) {
-        reply.code(400).send({ message: "An event with this slug already exists" });
+        throw new BadRequest("Event with this title already exists");
       }
 
       // Create the event
@@ -56,4 +59,4 @@ export async function createEvents(app: FastifyInstance) {
       return reply.code(201).send({ eventId: event.id });
     }
   );
-};
+}

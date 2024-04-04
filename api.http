@@ -2,7 +2,7 @@ POST http://localhost:3333/events
 Content-Type: application/json
 
 {
-    "title": "Testtt",
+    "title": "b",
     "details": "A concert featuring the band The Beatles",
     "maxAttendees": 100
 }
@@ -20,15 +20,15 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3333/events/7b5e412e-0f58-453d-bc64-c634d1a69fe4
+GET http://localhost:3333/events/7b5e412de-0f58-453d-bc64-c634d1a69fe4
 
 ###
 
-GET http://localhost:3333/attendees/4/badge
+GET http://localhost:3333/attendees/45/badge
 
 ###
 
-GET http://localhost:3333/attendees/6/check-in
+GET http://localhost:3333/attendees/a/check-in
 
 ###
 

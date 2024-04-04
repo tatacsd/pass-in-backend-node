@@ -2,6 +2,9 @@ import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { prisma } from "../lib/prisma";
+import { BadRequest } from "./_errors/bad-request";
+import { NotFound } from "./_errors/not-found";
+import { Conflict } from "./_errors/conflict";
 
 export async function registeForEvent(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -39,7 +42,7 @@ export async function registeForEvent(app: FastifyInstance) {
       });
 
       if (existingAttendee) {
-        throw new Error("Attendee already registered for this event");
+        throw new BadRequest("Attendee already registered for this event");
       }
 
       const [event, eventAttendeesCount] = await Promise.all([
@@ -56,11 +59,11 @@ export async function registeForEvent(app: FastifyInstance) {
       ]);
 
       if (!event) {
-        throw new Error("Event not found");
+        throw new NotFound("Event not found");
       }
 
       if (event?.maxAttendees && eventAttendeesCount >= event.maxAttendees) {
-        throw new Error(
+        throw new Conflict(
           "It's not possible to register for this event. The maximum number of attendees has been reached"
         );
       }

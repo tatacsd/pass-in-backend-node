@@ -2,6 +2,7 @@ import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { prisma } from "../lib/prisma";
+import { NotFound } from "./_errors/not-found";
 
 export async function getEventAttendees(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
@@ -26,7 +27,7 @@ export async function getEventAttendees(app: FastifyInstance) {
                 name: z.string(),
                 email: z.string().email(),
                 createdAt: z.date(),
-                checkInAt: z.date().nullish(),
+                checkInAt: z.date().nullable(),
               })
             ),
           }),
@@ -73,18 +74,16 @@ export async function getEventAttendees(app: FastifyInstance) {
 
       // if no attendees found
       if (!attendees) {
-        return reply.status(404).send({
-          message: "No attendees found",
-        });
+        throw new NotFound("No attendees found");
       }
 
       return reply.status(200).send({
         attendees: attendees.map((attendee) => ({
-          id: attendee.id,
+          id: attendee.id.toString(),
           name: attendee.name,
           email: attendee.email,
           createdAt: attendee.createdAt,
-          checkInAt: attendee.checkIn?.createdAt || null,
+          checkInAt: attendee.checkIn?.createdAt ?? null,
         })),
       });
     }
