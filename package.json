@@ -7,8 +7,11 @@
     "dev": "tsx watch --env-file .env src/server.ts"
   },
   "keywords": [],
-  "author": "",
+  "author": "Thays Casado",
   "license": "ISC",
+  "prisma" : {
+    "seed": "tsx prisma/seed.ts"
+  },
   "devDependencies": {
     "@types/node": "^20.12.2",
     "prisma": "^5.11.0",
