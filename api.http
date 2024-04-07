@@ -37,4 +37,4 @@ GET http://localhost:3333/events/d97443ca-71ff-4e22-93b0-2c0fe0981b51/attendees
 
 ###
 
-GET http://localhost:3333/events/d97443ca-71ff-4e22-93b0-2c0fe0981b51/attendees?query=
+GET http://localhost:3333/events/d97443ca-71ff-4e22-93b0-2c0fe0981b51/attendees?page_index=0

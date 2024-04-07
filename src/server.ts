@@ -16,12 +16,13 @@ import { checkIns } from "./routes/check-ins";
 import { getEventAttendees } from "./routes/get-event-attendees";
 import { errorHandler } from "./error-handler";
 
+const port = parseInt(process.env.PORT as string) || 5000;
 const app = fastify();
 
 // Add CORS to the app
 app.register(fastifyCors, {
-  origin: "*", // Allow all origins
-  // origin: ["http://localhost:3000"], // Allow only the specified origin
+  // origin: "*", // Allow all origins
+  origin: [process.env.ALLOWED_ORIGIN_FRONTEND as string], // Allow only the frontend origin
 });
 
 // Add swagger documentation to the app
@@ -57,6 +58,6 @@ app.register(getEventAttendees);
 
 app.setErrorHandler(errorHandler);
 
-app.listen({ port: 3333, host: "0.0.0.0" }).then(() => {
-  console.log("HTTP server is running! https://localhost:3333");
+app.listen({ port: port, host: "0.0.0.0" }).then(() => {
+  console.log(`Server is running on http://localhost:${port}`);
 });
