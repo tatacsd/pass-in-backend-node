@@ -1,3 +1,4 @@
+
 POST http://localhost:3333/events
 Content-Type: application/json
 
@@ -9,18 +10,18 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:3333/events/8fb51027-d8c8-43e6-8324-24b973f3b157/attendees
+POST http://localhost:3333/events/d97443ca-71ff-4e22-93b0-2c0fe0981b51/attendees
 Content-Type: application/json
 
 {
-    "name": "Lary",
-    "email": "LARYSSA@test.com"
+    "name": "john12",
+    "email": "john12@test.com"
 }
 
 
 ###
 
-GET http://localhost:3333/events/8fb51027-d8c8-43e6-8324-24b973f3b157
+GET http://localhost:3333/events/d97443ca-71ff-4e22-93b0-2c0fe0981b51
 
 ###
 
@@ -32,8 +33,8 @@ GET http://localhost:3333/attendees/9/check-in
 
 ###
 
-GET http://localhost:3333/events/8fb51027-d8c8-43e6-8324-24b973f3b157/attendees
+GET http://localhost:3333/events/d97443ca-71ff-4e22-93b0-2c0fe0981b51/attendees
 
 ###
 
-GET http://localhost:3333/events/8fb51027-d8c8-43e6-8324-24b973f3b157/attendees?query=
+GET http://localhost:3333/events/d97443ca-71ff-4e22-93b0-2c0fe0981b51/attendees?query=

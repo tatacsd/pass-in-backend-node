@@ -15,7 +15,7 @@ export async function getEventAttendees(app: FastifyInstance) {
         }),
         querystring: z.object({
           query: z.string().nullish(),
-          pageIndex: z.string().nullish().default('0').transform(Number),
+          page_index: z.string().transform(Number),
         }),
         response: {
           200: z.object({
@@ -34,7 +34,9 @@ export async function getEventAttendees(app: FastifyInstance) {
       }
     }, async (request, reply) => {
       const { eventId } = request.params
-      const { pageIndex, query } = request.query
+      const { page_index, query } = request.query
+      console.log('query', query)
+      console.log('page_index', page_index)
 
       const [attendees, total] = await Promise.all([
         prisma.attendee.findMany({
@@ -58,7 +60,7 @@ export async function getEventAttendees(app: FastifyInstance) {
             eventId,
           },
           take: 10,
-          skip: pageIndex * 10,
+          skip: page_index * 10,
           orderBy: {
             createdAt: 'desc'
           }
