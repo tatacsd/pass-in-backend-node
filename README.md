@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="Logo NLW Expert - Rocketseat" src="src/assets/nwl-united-icon.svg" width="100x" />
+  <img alt="Logo NLW Expert - Rocketseat" src="https://github.com/tatacsd/pass-in-web/raw/main/src/assets/nwl-united-icon.svg" width="100x" />
 </p>
 
 <p align="center">
@@ -20,10 +20,9 @@ This application was developed in the NLW Unite from Rocketseat on the Nodejs tr
 
 <br>
 
-<p align="center"
-    style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="Gif of the application" src="https://github.com/tatacsd/pass-in-web/assets/29147847/25253e1d-390e-4b7b-b7c6-07ece8b3d019" width="50%">
-  <img alt="Gif of the application" src="https://github.com/tatacsd/pass-in-web/assets/29147847/96cadb8c-f735-4c12-8c4c-dc7b2edff2de" width="50%">
+<p align="center">
+  <img alt="Gif of the application" src="https://github.com/tatacsd/pass-in-web/assets/29147847/25253e1d-390e-4b7b-b7c6-07ece8b3d019" width="100%">
+  <img alt="Gif of the application" src="https://github.com/tatacsd/pass-in-web/assets/29147847/96cadb8c-f735-4c12-8c4c-dc7b2edff2de" width="100%">
 
 
 </p>
