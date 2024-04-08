@@ -21,8 +21,8 @@ const app = fastify();
 
 // Add CORS to the app
 app.register(fastifyCors, {
-  // origin: "*", // Allow all origins
-  origin: [process.env.ALLOWED_ORIGIN_FRONTEND as string], // Allow only the frontend origin
+  origin: "*", // Allow all origins
+  // origin: [process.env.ALLOWED_ORIGIN_FRONTEND as string], // Allow only the frontend origin
 });
 
 // Add swagger documentation to the app
